@@ -548,7 +548,7 @@ class DiskPlotter {
 
         // Iterates through each table (with a left and right pointer), starting at 6 & 7.
         for (uint8_t table_index = 7; table_index > 1; --table_index) {
-            std::vector<std::pair<uint64_t, uint64_t> > match_positions;
+            //std::vector<std::pair<uint64_t, uint64_t> > match_positions;
             Timer table_timer;
 
             // We will have reader and writer for both tables.
@@ -803,7 +803,7 @@ class DiskPlotter {
 
                         Bits& new_right_entry = old_sort_keys[write_pointer_pos % kReadMinusWrite][counter];
                         new_right_entry += new_pos_bin;
-                        match_positions.push_back(std::make_pair(new_pos, new_offset_pos));
+                        //match_positions.push_back(std::make_pair(new_pos, new_offset_pos));
                         new_right_entry.AppendValue(new_offset_pos - new_pos, kOffsetSize);
                         if (Util::ByteAlign(new_right_entry.GetSize()) < right_entry_size_bytes * 8) {
                             memset(right_entry_buf, 0, right_entry_size_bytes);
