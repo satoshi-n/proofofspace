@@ -1,7 +1,7 @@
 # Chia Proof of Space
 
 A prototype of Chia's proof of space, written in C++. Includes a plotter, prover, and verifier.
-Only runs on 64 bit architectures with AES-NI support. Read the [Proof of Space document](https://github.com/Chia-Network/proofofspace/blob/master/proof_of_space.md) to learn about what proof of space is and how it works.
+Only runs on 64 bit architectures with AES-NI support. Read the [Proof of Space document](https://www.chia.net/assets/proof_of_space.pdf) to learn about what proof of space is and how it works.
 Read the [contest intro](https://github.com/Chia-Network/proofofspace/blob/master/contest_intro.md) to participate in the Proof of Space Contest.
 
 ## C++ Usage Instructions
