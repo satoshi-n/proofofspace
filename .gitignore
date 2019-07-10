@@ -1,0 +1,6 @@
+ProofOfSpace
+RunTests
+HellmanAttacks
+*.dSYM
+**/*.o
+**/*.dat
