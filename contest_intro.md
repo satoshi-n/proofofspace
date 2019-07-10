@@ -12,10 +12,8 @@ During this competition we will act as the verifier with a series of predetermin
 There are 3 tracks to enter into. The winner of each track will need to pass each of the challenges and optimise for one of the following:
 
 1. Fastest to generate the legal plot file without breaking any of the requirements
-2. Least memory used for swap space
+2. Least disk space used for generation
 3. Smallest plot size after generation
-
-The prize will be $50,000 for the winner of each track.
 
 ### About Proofs of Space
 
