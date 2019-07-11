@@ -41,7 +41,7 @@ class TestPlot(unittest.TestCase):
         assert(result4 == results[490])
 
     def test_f2(self):
-        k = 8
+        k = 12
         id = bytes([20, 2, 5, 4, 51, 52, 23, 84, 91, 10, 111, 12, 13,
                     24, 151, 16, 228, 211, 254, 45, 92, 198, 204, 10, 9, 10,
                     11, 129, 139, 171, 15, 18])
@@ -67,6 +67,7 @@ class TestPlot(unittest.TestCase):
         f2 = FxCalculator(k, 2, id)
         total_matches = 0
         for index, bucket_elements in buckets.items():
+            print("Bucket index:", index, len(bucket_elements))
             if index == (num_buckets - 1):
                 continue
             bucket_elements = sorted(bucket_elements, key=lambda x: x[0].uint)
@@ -77,7 +78,7 @@ class TestPlot(unittest.TestCase):
             for offset_L, offset_R in matches:
                 print("Match:", bucket_elements[offset_L], bucket_elements_2[offset_R])
                 total_matches += 1
-        assert(total_matches == 162)
+        assert(total_matches == 3066)
 
 
 if __name__ == '__main__':

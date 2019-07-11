@@ -13,6 +13,8 @@ BS_BITS = 128
 # a function f:k bits -> k bits, it's f:k bits -> k+EXTRA_BITS bits.
 EXTRA_BITS = 5
 
+EXTRA_BITS_POW = 2 ** EXTRA_BITS
+
 vector_lens = {
     2: 1,
     3: 2,
@@ -24,17 +26,16 @@ vector_lens = {
 }
 
 # B and C groups, used to compute matches.
-B_param = 59
-C_param = 67
+B_param = 60
+C_param = 509
 BC_param = B_param * C_param
 
 # Precomputation necessary to compute matches
-matching_shifts = [[0] * BC_param for _ in range(2)]
+matching_shifts_c = [[0] * C_param for _ in range(2)]
 for parity in range(2):
-    for r in range(2 ** EXTRA_BITS):
-        v = r * B_param + (2 * r + parity) ** 2 % B_param
-        assert v < BC_param
-        matching_shifts[parity][r] = v
+    for r in range(EXTRA_BITS_POW):
+        v = ((2 * r + parity) ** 2) % C_param
+        matching_shifts_c[parity][r] = v
 
 
 def pad(arr, bitlen):
@@ -196,18 +197,31 @@ class FxCalculator():
         matches = []
         if not len(bucket_l) or not len(bucket_r):
             return matches
-        lookup = [[] for _ in range(BC_param)]
+
+        R_bids = [[] for _ in range(C_param)]
+        R_positions = [[] for _ in range(C_param)]
+
         parity = (bucket_l[0].uint // BC_param) % 2
         for pos_R, y2 in enumerate(bucket_r):
-            yr2 = y2.uint % BC_param
-            lookup[yr2].append(pos_R)
+            R_bids[y2.uint % C_param].append((y2.uint % BC_param) // C_param)
+            R_positions[y2.uint % C_param].append(pos_R)
 
         for pos_L, y1 in enumerate(bucket_l):
-            y1uint = y1.uint
-            for m in range(2**EXTRA_BITS):
-                yr12 = y1uint % BC_param + matching_shifts[parity][m]
-                if yr12 >= BC_param:
-                    yr12 -= BC_param
-                for pos_R in lookup[yr12]:
-                    matches.append((pos_L, pos_R))
+            yl_bid = (y1.uint % BC_param) // C_param
+            yl_cid = y1.uint % C_param
+
+            for m in range(EXTRA_BITS_POW):
+                target_bid = yl_bid + m
+                target_cid = yl_cid + matching_shifts_c[parity][m]
+
+                if target_bid >= B_param:
+                    target_bid -= B_param
+                if target_cid >= C_param:
+                    target_cid -= C_param
+                for i in range(len(R_bids[target_cid])):
+                    R_bid = R_bids[target_cid][i]
+                    if target_bid == R_bid:
+                        yl_bucket = bucket_l[pos_L].uint // BC_param
+                        if yl_bucket + 1 == bucket_r[R_positions[target_cid][i]].uint // BC_param:
+                            matches.append((pos_L, R_positions[target_cid][i]))
         return matches

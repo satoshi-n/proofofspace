@@ -188,11 +188,13 @@ int main(int argc, char *argv[]) {
                     LargeBits proof = prover.GetFullProof(hash.data(), i);
                     uint8_t proof_data[proof.GetSize() / 8];
                     proof.ToBytes(proof_data);
-                    cout << "i: " << num << " Proof: 0x" << Util::HexStr(proof_data, k * 8) << endl;
+                    cout << "i: " << num << std::endl;
+                    cout << "chalenge: 0x" << Util::HexStr(hash.data(), 256 / 8) << endl;
+                    cout << "proof: 0x" << Util::HexStr(proof_data, k * 8) << endl;
                     LargeBits quality = verifier.ValidateProof(id_bytes, k, hash.data(), proof_data, k*8);
                     if (quality.GetSize() == 2*k) {
-                        cout << "Proof verification suceeded. k = " << static_cast<int>(k)
-                             << " Quality: " << quality << endl;
+                        cout << "quality: " << quality << endl;
+                        cout << "Proof verification suceeded. k = " << static_cast<int>(k) << endl;
                         success++;
                     } else {
                         cout << "Proof verification failed." << endl;

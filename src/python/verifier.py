@@ -1,13 +1,13 @@
 from bitstring import BitArray
 from .calculate_bucket import F1Calculator, FxCalculator
-from .utils import square_to_line_point
+
 
 def compare_arrays(arr1, arr2):
     """
     Compares starting at last element, then second to last, etc.
     """
     assert(len(arr1) == len(arr2))
-    for i in range(len(arr1) -1, -1, -1):
+    for i in range(len(arr1) - 1, -1, -1):
         if arr1[i].uint < arr2[i].uint:
             return True
         if arr1[i].uint > arr2[i].uint:
@@ -42,6 +42,7 @@ def validate_proof(ident, k, challenge, proof_bytes):
     Returns the quality string if proof is a valid proof of space for
     space parameter k. length of proof is (64 * k) // 8 bytes.
     """
+    challenge = int.from_bytes(challenge, "big")
     proof_bits = BitArray(proof_bytes)
     if k*64 != len(proof_bits):
         print("bad lengtH")

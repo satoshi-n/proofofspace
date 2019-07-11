@@ -4,3 +4,10 @@ HellmanAttacks
 *.dSYM
 **/*.o
 **/*.dat
+.vscode
+env/
+**/__pycache__
+src/python/.aes*
+src/python/.rendered*
+src/python/*.so
+**/*.DS_Store

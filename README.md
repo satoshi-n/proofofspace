@@ -38,6 +38,9 @@ time ./ProofOfSpace -k 25 generate
 
 ### Hellman Attacks usage
 
+There is an experimental implementation which implements some of the Hellman Attacks that can provide significant space savings for the final file.
+
+
 ```bash
 make hellman
 ./HellmanAttacks -k 18 -f "plot.dat" -m "0x1234" generate
@@ -46,7 +49,7 @@ make hellman
 
 ## Python
 
-A python implementation is also provided, although it is significantly slower, and is maintained with the latest changes.
+Finally, a python implementation is also provided for the verification algorithm.
 
 ### Install
 
@@ -64,7 +67,3 @@ Testings uses pytest.
 ```bash
 py.test ./tests/python -s
 ```
-
-## Hellman Example
-
-Finally, there is an experimental implementation which implements some of the Hellman Attacks that can provide significant space savings for the final file.
