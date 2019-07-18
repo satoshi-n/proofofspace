@@ -339,13 +339,11 @@ class DiskProver {
             }
             std::vector<LargeBits> xs_sorted = ReorderProof(proof_vector);
             if (xs_sorted.size() == 64) {
-                std::cout << "Matched proof!\n";
                 sol = LargeBits();
                 for (int i = 0; i < 64; i++)
                     sol += xs_sorted[i];
                 return sol;
             }
-            std::cout << "Unmatching proof!\n";
             return LargeBits();
         }
         for (int i = 0; i < inverses[depth].size(); i++) {

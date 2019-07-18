@@ -177,6 +177,8 @@ int main(int argc, char *argv[]) {
 
             for (uint32_t num = 0; num < iterations; num++) {
                 vector<unsigned char> hash_input = intToBytes(num, 4);
+                hash_input.insert(hash_input.end(),&id_bytes[0],&id_bytes[32]);
+
                 vector<unsigned char> hash(picosha2::k_digest_size);
                 picosha2::hash256(hash_input.begin(), hash_input.end(), hash.begin(), hash.end());
 

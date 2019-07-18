@@ -327,7 +327,7 @@ void Attacker::BuildDiskExtraStorage(string filename, std::vector<uint64_t>& ext
     uint64_t begin_byte = 0;
     uint64_t spare_begin = begin_byte + (entry_len * (entries_written + 1));
     Sorting::SortOnDisk(d, begin_byte, spare_begin, entry_len,
-                        0, bucket_sizes, memory, kMemorySize, /*quicksort=*/2);
+                        0, bucket_sizes, memory, kMemorySize, /*quicksort=*/1);
     d.Close();
 
     std::ifstream reader(filename, std::fstream::in | std::fstream::binary);
